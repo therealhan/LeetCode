@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        srand(time(0));
+        quickSort(nums, 0, nums.size() - 1);
+        return nums;
+    }
+private:
+    void quickSort(vector<int>& nums, int l, int r) {
+        if (l >= r) return;
+
+        int randomIndex = l + rand() % (r - l + 1);
+        swap(nums[l], nums[randomIndex]);
+        
+        int pivot = nums[l];
+
+        int lt = l;
+        int i = l + 1;
+        int gt = r;
+
+        while (i <= gt) {
+            if (nums[i] < pivot) {
+                swap(nums[i], nums[lt]);
+                lt++;
+                i++;
+            } else if (nums[i] > pivot) {
+                swap(nums[i], nums[gt]);
+                gt--;
+            } else {
+                i++;
+            }
+        }
+        
+        quickSort(nums, l, lt - 1);
+        quickSort(nums, gt + 1, r);
+    }
+};
