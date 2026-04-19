@@ -1,0 +1,17 @@
+bool Compare(vector <int> &a, vector <int> &b) {
+    return (a[0] + b[1]) < (a[1] + b[0]);
+}
+
+class Solution {
+public:
+    int twoCitySchedCost(vector<vector<int>>& costs)
+    {
+        int half = costs.size() >> 1, totalCost = 0;
+        sort(costs.begin(), costs.end(), Compare);
+        for (int i = 0; i < half; ++i)
+            totalCost += costs[i][0];
+        for (int i = half; i != costs.size(); ++i)
+            totalCost += costs[i][1];
+        return totalCost;
+    }
+};
