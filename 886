@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) 
+    {
+        adj.resize(n+1);
+        split.resize(n+1,0);
+         for(auto& d:dislikes)
+        {
+            int u=d[0],v=d[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+         vector<int> split(n,0);
+         for(int i=0;i<n;++i)
+            if(split[i]==0 && !dfs(n,1)) return false;
+            return true;
+    }
+
+private:
+    vector<vector<int>> adj;
+    vector<int> split;
+    bool dfs(int current,int position)
+    {
+        split[current]=position;
+        for(int next:adj[current])
+        {
+            if(split[next]==position) return false;
+            if(split[next]==0 && !dfs(next,-position)) return false;
+        }
+        return true;
+    }
+};
